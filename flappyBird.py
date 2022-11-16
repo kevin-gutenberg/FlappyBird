@@ -33,6 +33,10 @@ score = 0
 font = pygame.font.SysFont("san", 20)
 font1 = pygame.font.SysFont("san", 40)
 
+tube1_pass = False
+tube2_pass = False
+tube3_pass = False
+
 while running:
 	clock.tick(60)
 	screen.fill(WHITE)
@@ -59,6 +63,29 @@ while running:
 	x_tube1 -= tube_velocity
 	x_tube2 -= tube_velocity
 	x_tube3 -= tube_velocity
+
+	if x_tube1 < -tube_width:
+		x_tube1 = 550
+		tube1_height = randint(100, 400)
+		tube1_pass = False
+	if x_tube2 < -tube_width:
+		x_tube2 = 550
+		tube2_height = randint(100, 400)
+		tube2_pass = False
+	if x_tube3 < -tube_width:
+		x_tube3 = 550
+		tube3_height = randint(100, 400)
+		tube3_pass = False
+
+	if x_tube1+tube_width <= x_bird and tube1_pass == False:
+		score += 1
+		tube1_pass = True
+	if x_tube2+tube_width <= x_bird and tube2_pass == False:
+		score += 1
+		tube2_pass = True
+	if x_tube3+tube_width <= x_bird and tube3_pass == False:
+		score += 1
+		tube3_pass = True
 
 	score_txt = font.render("Score: " + str(score), True, RED)
 	screen.blit(score_txt, (5, 5))
